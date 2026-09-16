@@ -1,0 +1,214 @@
+<title>Hub de Dashboards</title>
+<meta name="description" content="Ponto único de acesso aos dashboards da Pós-Graduação em Medicina — SLMandic.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0d1533;
+    --navy-900:#131b3f;
+    --navy-800:#1a2459;
+    --gold:#f5c518;
+    --gold-ink:#5c4600;
+    --paper:#f5f6fb;
+    --panel:#ffffff;
+    --ink:#1b2140;
+    --ink-soft:#5b6178;
+    --line:#e3e6f2;
+    --ring:rgba(26,36,89,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0b1024;
+      --panel:#141b38;
+      --ink:#eef0fb;
+      --ink-soft:#a3aac6;
+      --line:#28304f;
+      --ring:rgba(245,197,24,.16);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0b1024;
+    --panel:#141b38;
+    --ink:#eef0fb;
+    --ink-soft:#a3aac6;
+    --line:#28304f;
+    --ring:rgba(245,197,24,.16);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,Segoe UI,sans-serif;
+    padding-inline:20px;
+  }
+  h1,h2,h3{font-family:"Space Grotesk","Inter",sans-serif; text-wrap:balance; margin:0}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+  header.band{
+    background:linear-gradient(155deg,var(--navy-950),var(--navy-800));
+    margin-inline:-20px;
+    padding:clamp(36px,7vw,56px) 20px clamp(28px,6vw,40px);
+    color:#f3f4fb;
+    position:relative;
+    overflow:hidden;
+  }
+  header.band::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(560px 280px at 88% -10%, rgba(245,197,24,.16), transparent 60%),
+      radial-gradient(420px 260px at 8% 120%, rgba(245,197,24,.08), transparent 55%);
+    pointer-events:none;
+  }
+  .band-inner{max-width:920px; margin:0 auto; position:relative}
+  .kicker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:"JetBrains Mono",monospace;
+    font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  .kicker::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 3px rgba(245,197,24,.22)}
+  header.band h1{font-size:clamp(26px,4.2vw,36px); font-weight:700; line-height:1.15; color:#fff}
+  header.band p{margin:12px 0 0; max-width:56ch; color:rgba(238,240,251,.72); font-size:14.5px; line-height:1.6}
+
+  main{max-width:920px; margin:0 auto; padding:clamp(28px,5vw,44px) 0 20px}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+  }
+  @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px 22px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    text-decoration:none;
+    color:inherit;
+    position:relative;
+    transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .card:hover, .card:focus-visible{
+    border-color:var(--gold);
+    box-shadow:0 10px 28px -14px var(--ring), 0 0 0 1px var(--ring);
+    transform:translateY(-2px);
+  }
+  .card:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+
+  .card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+  .icon{
+    width:40px; height:40px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--navy-800); color:var(--gold);
+    flex-shrink:0;
+  }
+  .icon svg{width:20px; height:20px}
+  .source{
+    font-family:"JetBrains Mono",monospace;
+    font-size:10.5px; letter-spacing:.03em;
+    color:var(--ink-soft);
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:4px 9px;
+    white-space:nowrap;
+  }
+  .card h2{font-size:15.5px; font-weight:500; letter-spacing:0; word-break:break-word}
+  .card p{margin:0; font-size:13.5px; line-height:1.55; color:var(--ink-soft)}
+  .card-open{
+    margin-top:auto;
+    display:flex; align-items:center; gap:6px;
+    font-size:12.5px; font-weight:600; color:var(--navy-800);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .card-open{color:var(--gold)} }
+  :root[data-theme="dark"] .card-open{color:var(--gold)}
+  .card-open svg{width:14px; height:14px; transition:transform .15s ease}
+  .card:hover .card-open svg{transform:translate(3px,-2px)}
+
+  footer{
+    max-width:920px; margin:8px auto 28px;
+    padding-top:18px; border-top:1px solid var(--line);
+    font-size:12px; color:var(--ink-soft);
+    display:flex; flex-wrap:wrap; gap:8px 16px; justify-content:space-between;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .card, .card-open svg{transition:none}
+  }
+</style>
+
+<header class="band">
+  <div class="band-inner">
+    <span class="kicker">Pós-Graduação em Medicina · SLMandic</span>
+    <h1>Hub de Dashboards</h1>
+    <p>Ponto único de acesso aos 4 dashboards em produção. Cada card abre o site correspondente em uma nova aba — os dados e a atualização de cada um continuam vivendo no próprio repositório.</p>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+
+    <a class="card" href="https://pg-med-mandic.github.io/Dashboard-de-NPS-Pacientes-Cl-nicas-P-s-M-dica/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>
+        </div>
+        <span class="source">Indecx · NPS</span>
+      </div>
+      <h2 class="mono">Dashboard NPS Pacientes</h2>
+      <p>NPS de pacientes das clínicas de pós-graduação (Quintal SLM), coletado via QR code nas unidades.</p>
+      <span class="card-open">Abrir dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+    </a>
+
+    <a class="card" href="https://pg-med-mandic.github.io/agendas-pac-real/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v3M16 3v3"/><path d="m9 14.5 2 2 4-4.5"/></svg>
+        </div>
+        <span class="source">ConsultaJá</span>
+      </div>
+      <h2 class="mono">agendas-pac-real</h2>
+      <p>Ocupação e comparecimento dos agendamentos de triagem, por curso, turma e unidade.</p>
+      <span class="card-open">Abrir dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+    </a>
+
+    <a class="card" href="https://pg-med-mandic.github.io/csat/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6-4.4-4.2 6-.8Z"/></svg>
+        </div>
+        <span class="source">Indecx · CSAT</span>
+      </div>
+      <h2 class="mono">csat</h2>
+      <p>Satisfação por item — aula, infraestrutura, professor, plataforma — das turmas de pós-graduação.</p>
+      <span class="card-open">Abrir dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+    </a>
+
+    <a class="card" href="https://pg-med-mandic.github.io/agendas_pgmed/" target="_blank" rel="noopener">
+      <div class="card-top">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V6a1 1 0 0 1 1-1h9l6 6v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M14 5v5h5"/><path d="M8 13h5M8 16.5h8"/></svg>
+        </div>
+        <span class="source">Checklist + ConsultaJá</span>
+      </div>
+      <h2 class="mono">agendas_pgmed</h2>
+      <p>Ocupação semanal das práticas clínicas por turma e módulo, e receita das turmas pagas.</p>
+      <span class="card-open">Abrir dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+    </a>
+
+  </div>
+
+  <footer>
+    <span>São Leopoldo Mandic · Pós-Graduação em Medicina</span>
+    <span class="mono">4 dashboards · hospedados no GitHub Pages</span>
+  </footer>
+</main>
