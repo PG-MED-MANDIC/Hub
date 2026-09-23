@@ -88,6 +88,8 @@
     gap:18px;
   }
   @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+  /* número ímpar de cards: o último ocupa a linha inteira em vez de ficar pela metade */
+  .grid > .card:last-child:nth-child(odd){grid-column:1 / -1}
 
   .card{
     background:var(--panel);
@@ -157,7 +159,7 @@
   <div class="band-inner">
     <span class="kicker">Pós-Graduação em Medicina · SLMandic</span>
     <h1>Hub de Dashboards</h1>
-    <p>Ponto único de acesso aos 4 dashboards em produção. Cada card abre o site correspondente nesta mesma aba — os dados e a atualização de cada um continuam vivendo no próprio repositório.</p>
+    <p>Ponto único de acesso aos 5 dashboards em produção. Cada card abre o site correspondente nesta mesma aba — os dados e a atualização de cada um continuam vivendo no próprio repositório.</p>
   </div>
 </header>
 
@@ -193,7 +195,7 @@
         <div class="icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6-4.4-4.2 6-.8Z"/></svg>
         </div>
-        <span class="source">Indecx · CSAT</span>
+        <span class="source">Indecx · CSAT · com senha</span>
       </div>
       <h2>Pesquisa de Satisfação CSAT</h2>
       <p>Satisfação por item — aula, infraestrutura, professor, plataforma — das turmas de pós-graduação.</p>
@@ -212,11 +214,23 @@
       <span class="card-open">Abrir dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
     </a>
 
+    <a class="card" href="https://pg-med-mandic.github.io/coord_mandic/">
+      <div class="card-top">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg>
+        </div>
+        <span class="source">Coordenação · com senha</span>
+      </div>
+      <h2>CSAT Pós Med — Coordenação</h2>
+      <p>Visão executiva da coordenação: CSAT, NPS, rankings por módulo e turma, One Page e ocupação de agendas e turmas.</p>
+      <span class="card-open">Abrir dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+    </a>
+
   </div>
 
   <footer>
     <span>São Leopoldo Mandic · Pós-Graduação em Medicina</span>
-    <span class="mono">4 dashboards</span>
+    <span class="mono">5 dashboards</span>
   </footer>
 </main>
 </body>
